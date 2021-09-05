@@ -50,5 +50,15 @@ namespace blogger.Services
       updatedComment.Body = updatedComment.Body != null ? updatedComment.Body : original.Body;
       return _repo.Update(updatedComment);
     }
+
+    internal List<Comment> GetCommentsByProfileId(string id)
+    {
+      List<Comment> comments = _repo.GetCommentsByProfileId(id);
+      if(comments ==null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      return comments;
+    }
   }
 }

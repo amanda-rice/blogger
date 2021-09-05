@@ -23,7 +23,6 @@ namespace blogger.Repositories
       FROM comments c
       JOIN accounts a ON c.creatorId = a.id
       ";
-      // data type 1, data type 2, return type
       return _db.Query<Profile, Comment, Comment>(sql, (profile, comment) =>
       {
         comment.Creator = profile;
@@ -48,6 +47,23 @@ namespace blogger.Repositories
         return comment;
       }, new { id }, splitOn: "id").FirstOrDefault();
     }
+     internal List<Comment> GetCommentsByProfileId(string id)
+    {
+      //WHERE a.id = @id
+      string sql = @"
+      SELECT 
+        a.*,
+        c.*
+      FROM comments c
+      JOIN accounts a ON c.creatorId = a.id
+      WHERE a.id = @id
+      ";
+      return _db.Query<Profile, Comment, Comment>(sql, (profile, comment) =>
+      {
+        comment.Creator = profile;
+        return comment;
+      }, splitOn: "id").ToList();
+    }
     internal Comment Create(Comment newComment)
     {
        string sql = @"
@@ -60,6 +76,8 @@ namespace blogger.Repositories
       int id = _db.ExecuteScalar<int>(sql, newComment);
       return Get(id);
     }
+
+
     internal void Delete(int id)
     {
       string sql = "DELETE FROM comments WHERE id = @id LIMIT 1";
