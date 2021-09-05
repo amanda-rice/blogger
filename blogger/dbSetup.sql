@@ -37,3 +37,20 @@ CREATE TABLE IF NOT EXISTS comments (
   creatorId VARCHAR(255) NOT NULL COMMENT 'Account Id of Creator',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+INSERT INTO
+  blogs (title, body, imgUrl, published, creatorId)
+VALUES
+  ('Hopped up on catnip get away from me stupid', 'Hopped up on catnip get away from me stupid', 'www.google.com', 1 , '6119b60103293700fa2bf5ce');
+SELECT
+  *
+FROM
+  pieces
+WHERE
+  artistId = 1;
+  /* 
+    SECTION AlterTable 
+    */
+  /* ALTER TABLE
+    ALTER COLUMN name varchar(255) comment 'artist name'; */
+  /* SECTION CREATE */
