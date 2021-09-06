@@ -56,7 +56,7 @@ namespace blogger.Repositories
         c.*
       FROM comments c
       JOIN accounts a ON c.creatorId = a.id
-      WHERE a.id = @id
+      WHERE c.creatorId = @id
       ";
       return _db.Query<Profile, Comment, Comment>(sql, (profile, comment) =>
       {

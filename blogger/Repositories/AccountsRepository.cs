@@ -42,7 +42,8 @@ namespace blogger.Repositories
             UPDATE accounts
             SET 
               name = @Name,
-              picture = @Picture
+              picture = @Picture,
+              email = @Email
             WHERE id = @Id;";
             _db.Execute(sql, update);
             return update;

@@ -32,9 +32,23 @@ namespace blogger.Services
         internal Account Edit(Account editData, string userEmail)
         {
             Account original = GetProfileByEmail(userEmail);
-            original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
-            original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
+            original.Name = editData.Name != null? editData.Name : original.Name;
+            original.Picture = editData.Picture != null? editData.Picture : original.Picture;
+            original.Email = editData.Email != null? editData.Email : original.Email;
             return _repo.Edit(original);
+        }
+        internal Account Edit(Account editData)
+        {
+            Account original = GetAccountById(editData.Id);
+            original.Name = editData.Name != null ? editData.Name : original.Name;
+            original.Picture = editData.Picture != null ? editData.Picture : original.Picture;
+            original.Email = editData.Email != null ? editData.Email : original.Email;
+            return _repo.Edit(original);
+        }
+         internal Account GetAccountById(string id)
+        {
+            Account profile = _repo.GetById(id);
+            return profile;
         }
     }
 }

@@ -55,5 +55,25 @@ namespace blogger.Services
       updatedBlog.Published = updatedBlog.PublishedWasSet ? updatedBlog.Published : original.Published;
       return _repo.Update(updatedBlog);
     }
+
+    internal List<Blog> GetBlogsByAccountId(Account userInfo)
+    {
+       List<Blog> blogs = _repo.GetBlogsByProfileId(userInfo.Id);
+      if(blogs ==null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      return blogs;
+    }
+
+    internal List<Blog> GetBlogsByProfileId(string id)
+    {
+      List<Blog> blogs = _repo.GetBlogsByProfileId(id);
+      if(blogs ==null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      return blogs;
+    }
   }
 }

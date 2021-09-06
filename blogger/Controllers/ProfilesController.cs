@@ -23,7 +23,8 @@ namespace blogger.Controllers
           _commentsService = commentsService;
           _blogsService = blogsService;
       }
-    [HttpGet("{id}/blogs")]
+
+    [HttpGet("{id}")]
     public ActionResult<Profile> Get(string id)
     {
       try
@@ -31,7 +32,20 @@ namespace blogger.Controllers
         Profile profile = _profilesService.Get(id);
         return Ok(profile);
       }
-      catch(Exception err)
+      catch (Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+    [HttpGet("{id}/blogs")]
+     public ActionResult<List<Blog>> GetBlogsByProfileId(string id)
+     {
+      try
+      {
+        List<Blog> blogs = _blogsService.GetBlogsByProfileId(id);
+        return Ok(blogs);
+      }
+      catch (Exception err)
       {
         return BadRequest(err.Message);
       }

@@ -64,7 +64,8 @@ namespace blogger.Controllers
         return BadRequest(err.Message);
       }
     }
-     [HttpPut("{id}")]
+    [HttpPut("{id}")]
+    [Authorize]
     public ActionResult<Blog> Edit([FromBody] Blog updatedBlog, int id)
     {
       try

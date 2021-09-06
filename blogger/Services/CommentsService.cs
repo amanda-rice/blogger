@@ -60,5 +60,15 @@ namespace blogger.Services
       }
       return comments;
     }
+
+    internal List<Comment> GetCommentsByAccountId(Account userInfo)
+    {
+      List<Comment> comments = _repo.GetCommentsByProfileId(userInfo.Id);
+      if(comments ==null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      return comments;
+    }
   }
 }
