@@ -37,7 +37,7 @@ namespace blogger.Controllers
         return BadRequest(err.Message);
       }
     }
-    [HttpGet("{id}/blogs")]
+    [HttpGet("{id}/{blogs}")]
      public ActionResult<List<Blog>> GetBlogsByProfileId(string id)
      {
       try

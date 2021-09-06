@@ -84,13 +84,13 @@ namespace blogger.Repositories
     internal List<Blog> GetBlogsByProfileId(string id)
     {
       //WHERE a.id = @id
-      string sql = @"
+      string sql = @$"
       SELECT 
         a.*,
         b.*
       FROM blogs b
       JOIN accounts a ON b.creatorId = a.id
-      WHERE b.creatorId = @id
+      WHERE b.creatorId = '{id}' AND b.published = 1
       ";
       return _db.Query<Profile, Blog, Blog>(sql, (profile, blog) =>
       {

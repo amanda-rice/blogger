@@ -50,13 +50,13 @@ namespace blogger.Repositories
      internal List<Comment> GetCommentsByProfileId(string id)
     {
       //WHERE a.id = @id
-      string sql = @"
+      string sql = @$"
       SELECT 
         a.*,
         c.*
       FROM comments c
       JOIN accounts a ON c.creatorId = a.id
-      WHERE c.creatorId = @id
+      WHERE c.creatorId = '{id}'
       ";
       return _db.Query<Profile, Comment, Comment>(sql, (profile, comment) =>
       {
@@ -64,6 +64,19 @@ namespace blogger.Repositories
         return comment;
       }, splitOn: "id").ToList();
     }
+
+    internal List<Comment> GetCommentsByBlogId(int id)
+    {
+      //WHERE a.id = @id
+      string sql = @$"
+      SELECT 
+      *
+      FROM comments c
+      WHERE c.blog = {id}
+      ";
+       return _db.Query<Comment>(sql).ToList();
+    }
+
     internal Comment Create(Comment newComment)
     {
        string sql = @"

@@ -17,10 +17,12 @@ namespace blogger.Controllers
   public class BlogsController : ControllerBase
   {
     private readonly BlogsService _blogsService;
+    private readonly CommentsService _commentsService;
 
-    public BlogsController(BlogsService blogsService)
+    public BlogsController(BlogsService blogsService, CommentsService commentsService)
     {
       _blogsService = blogsService;
+      _commentsService = commentsService;
     }
     [HttpGet]
     public ActionResult<List<Blog>> Get()
@@ -29,6 +31,19 @@ namespace blogger.Controllers
       {
         List<Blog> blogs = _blogsService.Get();
         return Ok(blogs);
+      }
+      catch (Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+    [HttpGet("{id}/{comments}")]
+    public ActionResult<List<Comment>> GetCommentsByBlogId(int id)
+    {
+      try
+      {
+        List<Comment> comments = _commentsService.GetCommentsByBlogId(id);
+        return Ok(comments);
       }
       catch (Exception err)
       {
